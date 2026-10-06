@@ -39,7 +39,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[code
 
         <section aria-labelledby="product-title" className="grid gap-10 py-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:py-16">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-dim">
+            <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-ink-dim">
               {product.line === "IA" ? "Industrial automation" : "Building automation"} · spec sheet
             </p>
             <h1 id="product-title" className="mt-3">
@@ -51,7 +51,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[code
             <p className="mt-5 max-w-[36rem] text-[17px] leading-relaxed text-ink-dim">{product.summary}</p>
             <ul className="mt-6 flex flex-wrap gap-2" aria-label="Interfaces">
               {product.interfaces.map((i) => (
-                <li key={i} className="border border-copper/50 px-2 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-copper">
+                <li key={i} className="border border-copper/50 px-2 py-1 font-mono text-[12px] uppercase tracking-[0.1em] text-copper">
                   {i}
                 </li>
               ))}
@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[code
                 className={`h-auto w-full ${product.image.cutout ? "drop-shadow-[0_30px_40px_rgba(0,0,0,0.55)]" : ""}`}
               />
             </div>
-            <figcaption className="mt-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-dim">
+            <figcaption className="mt-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
               <span className="h-px w-8 bg-copper" aria-hidden />
               {product.code} · photographed by Armtronix
             </figcaption>
@@ -103,7 +103,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[code
             <tbody>
               {product.specs.map((s) => (
                 <tr key={s.label} className="border-b border-line">
-                  <th scope="row" className="w-[38%] py-3 pr-4 align-top font-mono text-[11px] font-normal uppercase tracking-[0.14em] text-ink-dim">
+                  <th scope="row" className="w-[38%] py-3 pr-4 align-top font-mono text-[12px] font-normal uppercase tracking-[0.14em] text-ink-dim">
                     {s.label}
                   </th>
                   <td className="py-3 text-[15.5px]">{s.value}</td>
@@ -115,7 +115,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[code
 
         {siblings.length > 0 && (
           <section aria-labelledby="related-title" className="border-t border-line py-14">
-            <h2 id="related-title" className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-dim">
+            <h2 id="related-title" className="font-mono text-[12px] uppercase tracking-[0.18em] text-ink-dim">
               Same rail
             </h2>
             <ul className="mt-6 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">

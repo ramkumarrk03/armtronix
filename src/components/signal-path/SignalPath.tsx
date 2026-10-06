@@ -1,15 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMeter } from "@/lib/useMeter";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { SignalDiagram, STAGES } from "./SignalDiagram";
 import { STAGE_COPY } from "./stages";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const PIN_LENGTH = 2600; // px of scroll the story occupies on desktop
 
@@ -26,26 +23,57 @@ export function SignalPath() {
   const [pinned, setPinned] = useState(false);
   const meter = useMeter(true);
 
+  // GSAP is only needed for the desktop pinned story, so it is loaded on
+  // demand (after hydration, desktop only) and stays off the critical path.
   useEffect(() => {
     const el = pinRef.current;
     if (!el) return;
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-      setPinned(true);
-      triggerRef.current = ScrollTrigger.create({
+    const query = "(min-width: 1024px) and (prefers-reduced-motion: no-preference)";
+    let cancelled = false;
+    let revert: (() => void) | undefined;
+
+    async function setup() {
+      const [{ gsap }, { ScrollTrigger: ST }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
+      if (cancelled || !el) return;
+      gsap.registerPlugin(ST);
+      const mm = gsap.matchMedia();
+      revert = () => mm.revert();
+      mm.add(query, () => {
+        setPinned(true);
+        triggerRef.current = ST.create({
         trigger: el,
         start: "top top",
         end: `+=${PIN_LENGTH}`,
         pin: true,
         scrub: true,
-        onUpdate: (self) => setProgress(self.progress),
+          onUpdate: (self) => setProgress(self.progress),
+        });
+        return () => {
+          triggerRef.current = null;
+          setPinned(false);
+        };
       });
-      return () => {
-        triggerRef.current = null;
-        setPinned(false);
+    }
+
+    const mql = window.matchMedia(query);
+    if (mql.matches) {
+      void setup();
+    } else {
+      // load later only if the viewport becomes eligible (e.g. window resized)
+      const onChange = () => {
+        if (mql.matches && !revert) void setup();
       };
-    });
-    return () => mm.revert();
+      mql.addEventListener("change", onChange);
+      return () => {
+        cancelled = true;
+        mql.removeEventListener("change", onChange);
+        revert?.();
+      };
+    }
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
   }, []);
 
   // Keyboard / click: jump the scroll to a station
@@ -89,10 +117,10 @@ export function SignalPath() {
                       aria-current={active ? "step" : undefined}
                       className="group flex w-full items-baseline gap-3 py-3 text-left"
                     >
-                      <span className={`font-mono text-[11px] ${active ? "text-signal" : done ? "text-copper" : "text-ink-dim"}`}>
+                      <span className={`font-mono text-[12px] ${active ? "text-signal" : done ? "text-copper" : "text-ink-dim"}`}>
                         {s.n}
                       </span>
-                      <span className={`font-mono text-[11px] uppercase tracking-[0.18em] ${active ? "text-ink" : "text-ink-dim group-hover:text-ink"}`}>
+                      <span className={`font-mono text-[12px] uppercase tracking-[0.18em] ${active ? "text-ink" : "text-ink-dim group-hover:text-ink"}`}>
                         {s.key}
                       </span>
                     </button>
@@ -138,7 +166,7 @@ export function SignalPath() {
           {STAGE_COPY.map((s) => (
             <li key={s.n} className="relative">
               <span aria-hidden className="absolute -left-[26px] top-1 h-2.5 w-2.5 rounded-full border border-copper bg-bg" />
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-dim">
+              <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-ink-dim">
                 <span className="text-signal">{s.n}</span> · {s.key}
               </p>
               <p className="mt-2 text-[18px] font-semibold leading-snug">{s.title}</p>

@@ -57,7 +57,7 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
 
   const field = (k: keyof Fields, label: string, opts: { type?: string; required?: boolean; autoComplete?: string } = {}) => (
     <div>
-      <label htmlFor={`${uid}-${k}`} className="block font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim">
+      <label htmlFor={`${uid}-${k}`} className="block font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
         {label} {opts.required ? <span className="text-copper">*</span> : <span className="normal-case tracking-normal">(optional)</span>}
       </label>
       <input
@@ -71,7 +71,7 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
         className="field-input mt-1.5"
       />
       {errors[k] && (
-        <p id={`${uid}-${k}-err`} className="mt-1.5 font-mono text-[11px] text-fault">
+        <p id={`${uid}-${k}-err`} className="mt-1.5 font-mono text-[12px] text-fault">
           {errors[k]}
         </p>
       )}
@@ -81,7 +81,7 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
   if (status === "sent") {
     return (
       <section id="rfq" aria-labelledby="rfq-done" className="scroll-mt-20 border border-copper bg-bg/80 p-5 sm:p-8">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ok">● Packet delivered · ACK</p>
+        <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ok">● Packet delivered · ACK</p>
         <h2 id="rfq-done" className="nameplate mt-4 text-[clamp(1.8rem,3.4vw,2.8rem)]">
           Logged on
           <br />
@@ -126,7 +126,7 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
 
   return (
     <section id="rfq" aria-labelledby="rfq-title" className="scroll-mt-20 border border-line bg-bg/80 p-5 sm:p-8">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">RFQ · request for quote</p>
+      <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-dim">RFQ · request for quote</p>
       <h2 id="rfq-title" className="mt-2 text-[clamp(1.4rem,2.4vw,2rem)] font-semibold leading-tight [font-variation-settings:'wdth'_112]">
         Tell us about the machine
       </h2>
@@ -138,7 +138,7 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
 
       <form noValidate onSubmit={submit} className="mt-6 space-y-5">
         <fieldset>
-          <legend className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim">I want to</legend>
+          <legend className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">I want to</legend>
           <div className="mt-2 grid gap-2 sm:grid-cols-3">
             {(Object.keys(INTENT_LABEL) as Intent[]).map((k) => (
               <label key={k} className={`flex cursor-pointer items-center gap-2 border px-3 py-2.5 text-[13.5px] transition-colors duration-100 ${intent === k ? "border-copper text-ink" : "border-line-strong text-ink-dim hover:text-ink"}`}>
@@ -157,7 +157,7 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
         </div>
 
         <div>
-          <label htmlFor={`${uid}-qty`} className="block font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim">
+          <label htmlFor={`${uid}-qty`} className="block font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
             Quantity <span className="text-copper">*</span>
           </label>
           <select
@@ -175,14 +175,14 @@ export function RfqForm({ productCode, initialIntent }: { productCode?: string; 
             <option value="oem">500+ · OEM / white-label</option>
           </select>
           {errors.qty && (
-            <p id={`${uid}-qty-err`} className="mt-1.5 font-mono text-[11px] text-fault">
+            <p id={`${uid}-qty-err`} className="mt-1.5 font-mono text-[12px] text-fault">
               {errors.qty}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor={`${uid}-message`} className="block font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim">
+          <label htmlFor={`${uid}-message`} className="block font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
             Machine &amp; signals <span className="normal-case tracking-normal">(optional)</span>
           </label>
           <textarea

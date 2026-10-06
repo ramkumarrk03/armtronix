@@ -48,7 +48,7 @@ export function RetrofitFinder({ initialIntent, initialProduct }: Props) {
                   disabled={i > step || !!chosen}
                   onClick={() => setStep(i)}
                   aria-current={state === "active" ? "step" : undefined}
-                  className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] disabled:cursor-default"
+                  className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] disabled:cursor-default"
                 >
                   <span
                     className={`grid h-6 w-6 place-items-center rounded-full border ${
@@ -67,7 +67,7 @@ export function RetrofitFinder({ initialIntent, initialProduct }: Props) {
               </li>
             );
           })}
-          <li className="ml-3 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-dim">
+          <li className="ml-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ink-dim">
             <span className={done ? "text-signal" : ""}>→ board</span>
           </li>
         </ol>
@@ -78,7 +78,7 @@ export function RetrofitFinder({ initialIntent, initialProduct }: Props) {
               (q, i) =>
                 i === step && (
                   <fieldset key={q.id}>
-                    <legend className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
+                    <legend className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-dim">
                       Question {q.n} of 03
                     </legend>
                     <p className="mt-2 text-[clamp(1.3rem,2.2vw,1.8rem)] font-semibold leading-tight [font-variation-settings:'wdth'_112]">
@@ -98,14 +98,14 @@ export function RetrofitFinder({ initialIntent, initialProduct }: Props) {
                             <span className="cta-terminal__pin" aria-hidden />
                             <span>
                               <span className="block text-[15.5px] font-semibold leading-snug">{o.label}</span>
-                              <span className="mt-1 block font-mono text-[11px] text-ink-dim">{o.hint}</span>
+                              <span className="mt-1 block font-mono text-[12px] text-ink-dim">{o.hint}</span>
                             </span>
                           </button>
                         );
                       })}
                     </div>
                     {i > 0 && (
-                      <button type="button" onClick={() => setStep(i - 1)} className="link-trace mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-dim">
+                      <button type="button" onClick={() => setStep(i - 1)} className="link-trace mt-6 font-mono text-[12px] uppercase tracking-[0.14em] text-ink-dim">
                         ← Back
                       </button>
                     )}
@@ -115,7 +115,7 @@ export function RetrofitFinder({ initialIntent, initialProduct }: Props) {
 
           {done && product && (
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-signal">
+              <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-signal">
                 {chosen ? "Selected board" : "Recommended board"}
               </p>
               <div className="mt-4 grid items-center gap-6 sm:grid-cols-[200px_1fr]">

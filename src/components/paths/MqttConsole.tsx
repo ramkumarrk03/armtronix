@@ -81,7 +81,7 @@ export function MqttConsole() {
 
   return (
     <div className="border border-line-strong bg-[#070908] text-[#d9d5c9]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[#9a9a90]">
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[#9a9a90]">
         <span className="mr-auto">TP4 · mqtt console · simulated</span>
         <button
           type="button"
@@ -101,7 +101,7 @@ export function MqttConsole() {
             role="radio"
             aria-checked={t.id === topic.id}
             onClick={() => choose(t)}
-            className={`px-2 py-1 font-mono text-[11px] transition-colors duration-100 ${
+            className={`px-2 py-1 font-mono text-[12px] transition-colors duration-100 ${
               t.id === topic.id ? "bg-[#c8794a] text-[#0b0d0c]" : "border border-white/15 text-[#c9c5b9] hover:border-[#c8794a]"
             }`}
           >
@@ -111,7 +111,7 @@ export function MqttConsole() {
       </div>
       <div
         ref={boxRef}
-        className="h-[260px] overflow-y-auto px-3 py-3 font-mono text-[11.5px] leading-[1.7]"
+        className="h-[260px] overflow-y-auto px-3 py-3 font-mono text-[12px] leading-[1.7]"
         aria-live="off"
         tabIndex={0}
         aria-label="Simulated MQTT message stream"

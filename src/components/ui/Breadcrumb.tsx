@@ -13,7 +13,7 @@ export function Breadcrumb({ trail }: { trail: Crumb[] }) {
       {parent?.href && (
         <Link
           href={parent.href}
-          className="group inline-flex min-h-[40px] items-center gap-2 border border-line-strong px-3 font-mono text-[11px] uppercase tracking-[0.14em] text-ink transition-colors duration-150 hover:border-copper hover:text-copper-hi"
+          className="group inline-flex min-h-[40px] items-center gap-2 border border-line-strong px-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ink transition-colors duration-150 hover:border-copper hover:text-copper-hi"
         >
           <span aria-hidden className="transition-transform duration-150 ease-snap group-hover:-translate-x-0.5">
             ←
@@ -21,7 +21,7 @@ export function Breadcrumb({ trail }: { trail: Crumb[] }) {
           Back<span className="sr-only"> to {parent.label}</span>
         </Link>
       )}
-      <ol className="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-dim">
+      <ol className="flex flex-wrap items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-ink-dim">
         {trail.map((c, i) => (
           <li key={c.label} className="flex items-center gap-2">
             {i > 0 && <span aria-hidden className="opacity-50">/</span>}

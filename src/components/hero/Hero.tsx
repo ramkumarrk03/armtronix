@@ -12,7 +12,7 @@ export function Hero() {
     <HeroStage>
       <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col items-center justify-center px-4 pb-16 pt-10 text-center sm:px-6 lg:px-10">
         <div data-hero-content className="flex max-w-[760px] flex-col items-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">
+          <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-ink-dim">
             Industrial IoT hardware · Hubballi
           </p>
 
@@ -43,7 +43,7 @@ export function Hero() {
 
           <p
             aria-label="Board self-test passed"
-            className="mt-12 flex flex-wrap items-center justify-center gap-x-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim"
+            className="mt-12 flex flex-wrap items-center justify-center gap-x-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim"
           >
             {POST.map((seg, i) => (
               <span

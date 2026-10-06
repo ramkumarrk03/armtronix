@@ -31,7 +31,7 @@ export function DinRail({ products, label, size = "lg" }: Props) {
   return (
     <div className="relative">
       <div className="mb-4 flex items-center justify-between gap-4">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-dim">{label}</p>
+        <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-ink-dim">{label}</p>
         <div className="flex gap-2">
           <RailButton onClick={() => step(-1)} label={`Previous ${label} module`} dir="left" />
           <RailButton onClick={() => step(1)} label={`Next ${label} module`} dir="right" />
@@ -74,7 +74,7 @@ export function DinRail({ products, label, size = "lg" }: Props) {
                   <h3 className={`mt-1 font-semibold leading-tight ${big ? "text-[19px]" : "text-[16px]"}`}>{p.name}</h3>
                   <Link
                     href={`/products/${p.code.toLowerCase()}`}
-                    className="link-trace mt-4 inline-block font-mono text-[11px] uppercase tracking-[0.14em] text-ink-dim after:absolute after:inset-0 after:content-['']"
+                    className="link-trace mt-4 inline-block font-mono text-[12px] uppercase tracking-[0.14em] text-ink-dim after:absolute after:inset-0 after:content-['']"
                   >
                     Spec sheet →
                   </Link>

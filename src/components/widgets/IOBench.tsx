@@ -40,10 +40,10 @@ export function IOBench() {
   return (
     <div className="border border-line-strong bg-bg-raised/60">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
+        <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-dim">
           <span className="text-copper">J2</span> · live I/O bench · IA009 · simulated
         </p>
-        <div role="radiogroup" aria-label="Output logic" className="flex border border-line-strong font-mono text-[11px] uppercase tracking-[0.12em]">
+        <div role="radiogroup" aria-label="Output logic" className="flex border border-line-strong font-mono text-[12px] uppercase tracking-[0.12em]">
           {(["mirror", "invert"] as const).map((m) => (
             <button
               key={m}
@@ -62,7 +62,7 @@ export function IOBench() {
       <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[1.4fr_1fr]">
         <div>
           {/* inputs: toggle levers */}
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-dim">Digital inputs · 24 V DC · tap to switch</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">Digital inputs · 24 V DC · tap to switch</p>
           <div className="mt-3 grid grid-cols-6 gap-2 sm:grid-cols-12">
             {inputs.map((v, i) => (
               <button
@@ -81,19 +81,19 @@ export function IOBench() {
                     }`}
                   />
                 </span>
-                <span className={`font-mono text-[10px] ${v ? "text-ink" : "text-ink-dim"}`}>{String(i + 1).padStart(2, "0")}</span>
+                <span className={`font-mono text-[11px] ${v ? "text-ink" : "text-ink-dim"}`}>{String(i + 1).padStart(2, "0")}</span>
               </button>
             ))}
           </div>
 
           {/* opto-isolation barrier */}
-          <div aria-hidden className="my-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-dim">
+          <div aria-hidden className="my-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
             <span className="h-px flex-1 border-t border-dashed border-line-strong" />
             opto-isolation barrier · 12 × ESP → 12 ×
             <span className="h-px flex-1 border-t border-dashed border-line-strong" />
           </div>
 
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-dim">Digital outputs · opto-isolated</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">Digital outputs · opto-isolated</p>
           <ul className="mt-3 grid grid-cols-6 gap-2 sm:grid-cols-12" aria-label="Output states">
             {outputs.map((v, i) => (
               <li key={i} className="flex flex-col items-center gap-1.5">
@@ -105,7 +105,7 @@ export function IOBench() {
                 <span className="sr-only">
                   Output {i + 1} {v ? "on" : "off"}
                 </span>
-                <span aria-hidden className={`font-mono text-[10px] ${v ? "text-ink" : "text-ink-dim"}`}>
+                <span aria-hidden className={`font-mono text-[11px] ${v ? "text-ink" : "text-ink-dim"}`}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </li>
@@ -113,8 +113,8 @@ export function IOBench() {
           </ul>
         </div>
 
-        <div className="flex min-h-[220px] flex-col border border-line bg-[#070908] p-3 font-mono text-[11px] leading-[1.7] text-[#d9d5c9]">
-          <p className="text-[10px] uppercase tracking-[0.16em] text-[#9a9a90]">mqtt publishes</p>
+        <div className="flex min-h-[220px] flex-col border border-line bg-[#070908] p-3 font-mono text-[12px] leading-[1.7] text-[#d9d5c9]">
+          <p className="text-[11px] uppercase tracking-[0.16em] text-[#9a9a90]">mqtt publishes</p>
           <ul className="mt-2 flex-1 space-y-0.5" aria-live="polite">
             {log.length === 0 && <li className="text-[#6f6f68]">Flip an input to publish…</li>}
             {log.map((l) => (
@@ -124,7 +124,7 @@ export function IOBench() {
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-[10px] text-[#9a9a90]">
+          <p className="mt-2 text-[11px] text-[#9a9a90]">
             {outputs.filter(Boolean).length} / {CH} outputs on · {inputs.filter(Boolean).length} / {CH} inputs high
           </p>
         </div>

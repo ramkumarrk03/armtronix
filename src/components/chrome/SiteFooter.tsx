@@ -23,7 +23,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1440px] px-4 pb-10 pt-28 lg:pt-36 sm:px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-dim">TP · Contact</p>
+            <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-ink-dim">TP · Contact</p>
             <h2 id="contact-title" className="nameplate mt-4 text-[clamp(2.2rem,6vw,5rem)]">
               Bring us your
               <br />
@@ -43,7 +43,7 @@ export function SiteFooter() {
             <dl className="space-y-4">
               {CONTACT.map((c) => (
                 <div key={c.k}>
-                  <dt className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim">{c.k}</dt>
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">{c.k}</dt>
                   <dd className="mt-1 text-[17px]">
                     <a href={c.href} className="link-trace" {...(c.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}>
                       {c.v}
@@ -54,7 +54,7 @@ export function SiteFooter() {
             </dl>
             <div className="space-y-4">
               <div>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-dim">Bench</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">Bench</p>
                 <address className="mt-1 text-[15px] not-italic leading-relaxed">
                   First Floor, KLE Tech Park Building
                   <br />
@@ -63,7 +63,7 @@ export function SiteFooter() {
                   Hubballi, Karnataka, India
                 </address>
               </div>
-              <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] uppercase tracking-[0.12em]">
+              <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] uppercase tracking-[0.12em]">
                 {SOCIAL.map((s) => (
                   <li key={s.k}>
                     <a href={s.href} target="_blank" rel="noreferrer" className="link-trace text-ink-dim">
@@ -76,7 +76,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-2 border-t border-line pt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-dim sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-2 border-t border-line pt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim sm:flex-row sm:items-center sm:justify-between">
           <span>Armtronix IoT Pvt. Ltd. · Armtronix Technologies LLP</span>
           <span>Designed &amp; made in Hubballi, India · telemetry simulated</span>
         </div>

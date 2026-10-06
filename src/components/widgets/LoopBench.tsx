@@ -65,10 +65,10 @@ export function LoopBench() {
   return (
     <div ref={boxRef} className="border border-line-strong bg-bg-raised/60">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
+        <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-dim">
           <span className="text-copper">AI1</span> · 4–20 mA loop bench · IA015 · simulated
         </p>
-        <p className="font-mono text-[11px] uppercase tracking-[0.12em]" style={{ color }} aria-live="polite">
+        <p className="font-mono text-[12px] uppercase tracking-[0.12em]" style={{ color }} aria-live="polite">
           ● {status.label}
         </p>
       </div>
@@ -89,17 +89,17 @@ export function LoopBench() {
               <rect x="0" y={y(3.6)} width={W} height={H - y(3.6)} fill="rgba(255,90,60,0.08)" />
               <path d={path} fill="none" stroke={color} strokeWidth="2" vectorEffect="non-scaling-stroke" style={{ filter: `drop-shadow(0 0 4px ${color})` }} />
             </svg>
-            <span className="absolute left-2 top-1 font-mono text-[10px] text-[#9a9a90]">22 mA</span>
-            <span className="absolute bottom-1 left-2 font-mono text-[10px] text-[#9a9a90]">0 mA · 100 ms/div</span>
-            <span className="absolute right-2 font-mono text-[10px] text-[#ffc53d]" style={{ top: `calc(${(yLevel(HIGH) / H) * 100}% - 14px)` }}>
+            <span className="absolute left-2 top-1 font-mono text-[11px] text-[#9a9a90]">22 mA</span>
+            <span className="absolute bottom-1 left-2 font-mono text-[11px] text-[#9a9a90]">0 mA · 100 ms/div</span>
+            <span className="absolute right-2 font-mono text-[11px] text-[#ffc53d]" style={{ top: `calc(${(yLevel(HIGH) / H) * 100}% - 14px)` }}>
               HI {HIGH}%
             </span>
-            <span className="absolute right-2 font-mono text-[10px] text-[#ffc53d]" style={{ top: `calc(${(yLevel(LOW) / H) * 100}% + 2px)` }}>
+            <span className="absolute right-2 font-mono text-[11px] text-[#ffc53d]" style={{ top: `calc(${(yLevel(LOW) / H) * 100}% + 2px)` }}>
               LO {LOW}%
             </span>
           </div>
 
-          <label htmlFor="loop-ma" className="mt-5 block font-mono text-[10px] uppercase tracking-[0.16em] text-ink-dim">
+          <label htmlFor="loop-ma" className="mt-5 block font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim">
             Loop current (drag or use arrow keys)
           </label>
           <input
@@ -110,10 +110,10 @@ export function LoopBench() {
             step={0.1}
             value={mA}
             onChange={(e) => setMa(Number(e.target.value))}
-            aria-valuetext={`${mA.toFixed(1)} milliamps, ${pct.toFixed(0)} percent level, ${status.label.toLowerCase()}`}
+            aria-valuetext={`${mA.toFixed(1)} milliamps, ${pct.toFixed(0)} percent level, ${status.label.replace(/mA/g, "milliamps").toLowerCase()}`}
             className="loop-slider mt-3 w-full"
           />
-          <div className="mt-1 flex justify-between font-mono text-[10px] text-ink-dim">
+          <div className="mt-1 flex justify-between font-mono text-[11px] text-ink-dim">
             <span>0</span>
             <span>4 mA = 0%</span>
             <span>20 mA = 100%</span>
@@ -130,22 +130,22 @@ export function LoopBench() {
           </div>
           <dl className="space-y-4 font-mono">
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.16em] text-ink-dim">Loop</dt>
+              <dt className="text-[11px] uppercase tracking-[0.16em] text-ink-dim">Loop</dt>
               <dd className="text-[30px] leading-none tabular" style={{ color }}>
                 {mA.toFixed(2)}
                 <span className="ml-1 text-[13px] text-ink-dim">mA</span>
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.16em] text-ink-dim">Tank level</dt>
+              <dt className="text-[11px] uppercase tracking-[0.16em] text-ink-dim">Tank level</dt>
               <dd className="text-[30px] leading-none tabular text-ink">
                 {status.state === "fault" ? "—" : pct.toFixed(1)}
                 <span className="ml-1 text-[13px] text-ink-dim">%</span>
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.16em] text-ink-dim">Publish</dt>
-              <dd className="break-all text-[11px] leading-relaxed text-ink-dim">
+              <dt className="text-[11px] uppercase tracking-[0.16em] text-ink-dim">Publish</dt>
+              <dd className="break-all text-[12px] leading-relaxed text-ink-dim">
                 armtronix/ia015/ai/1
                 <br />
                 <span className="text-signal">{`{"mA":${mA.toFixed(2)},"pct":${status.state === "fault" ? "null" : pct.toFixed(1)}}`}</span>

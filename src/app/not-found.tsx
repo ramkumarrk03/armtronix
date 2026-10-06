@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <main id="main" className="flex min-h-[100svh] items-center pt-14">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-fault">● 404 · no carrier</p>
+        <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-fault">● 404 · no carrier</p>
         <h1 className="nameplate mt-5 text-[clamp(2.4rem,7vw,5.6rem)]">
           Open circuit
         </h1>

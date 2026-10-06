@@ -375,7 +375,8 @@ export function HeroStage({ children }: { children: ReactNode }) {
           width={HERO_PHOTO.width}
           height={HERO_PHOTO.height}
           preload
-          sizes="(min-width: 1024px) 96vw, 160vw"
+          sizes="(min-width: 1024px) 80vw, 110vw"
+          quality={45}
           className="hero-photo-img h-full w-full select-none"
         />
         {STATUS_LEDS.map((p, i) => (
@@ -410,7 +411,7 @@ export function HeroStage({ children }: { children: ReactNode }) {
       {readout && (
         <div
           aria-hidden
-          className="pointer-events-none absolute z-30 min-w-[220px] border border-signal/60 bg-bg/92 px-3 py-2 font-mono text-[11px] leading-[1.55] text-ink shadow-[0_0_24px_var(--signal-glow)]"
+          className="pointer-events-none absolute z-30 min-w-[220px] border border-signal/60 bg-bg/92 px-3 py-2 font-mono text-[12px] leading-[1.55] text-ink shadow-[0_0_24px_var(--signal-glow)]"
           style={{
             left: readout.x,
             top: readout.y,
@@ -422,7 +423,7 @@ export function HeroStage({ children }: { children: ReactNode }) {
               {l}
             </div>
           ))}
-          <div className="mt-1 text-[9.5px] uppercase tracking-[0.16em] text-ink-dim/80">
+          <div className="mt-1 text-[11px] uppercase tracking-[0.16em] text-ink-dim/80">
             probe · simulated
           </div>
         </div>

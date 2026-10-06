@@ -90,7 +90,7 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
           strokeWidth="2"
         />
         <circle cx="117" cy="230" r="3.5" fill="var(--copper)" />
-        <text x="117" y="350" textAnchor="middle" className="fill-current font-mono" fontSize="9" letterSpacing="1.2">
+        <text x="117" y="350" textAnchor="middle" className="fill-current font-mono" fontSize="10.5" letterSpacing="1.2">
           MODBUS RTU · ID 01
         </text>
         {/* A/B terminals */}
@@ -106,7 +106,7 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
       <g opacity={on(1)} style={{ transition: "opacity 160ms linear" }}>
         <path d={twist(210, 372, 295, 0)} fill="none" stroke="var(--copper)" strokeWidth="1.6" />
         <path d={twist(210, 372, 309, Math.PI)} fill="none" stroke="var(--copper)" strokeWidth="1.6" strokeOpacity="0.6" />
-        <text x="291" y="270" textAnchor="middle" className="fill-ink-dim font-mono" fontSize="9.5" letterSpacing="1.4">
+        <text x="291" y="270" textAnchor="middle" className="fill-ink-dim font-mono" fontSize="10.5" letterSpacing="1.4">
           RS485 · A / B · 9600 8N1
         </text>
         <g className="font-mono" fontSize="10.5">
@@ -147,9 +147,9 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
           IA010 · RS485 → IIoT
         </text>
       </g>
-      <g opacity={lit(2) ? 1 : 0} style={{ transition: "opacity 160ms linear" }} className="font-mono" fontSize="9.5">
+      <g opacity={lit(2) ? 1 : 0} style={{ transition: "opacity 160ms linear" }} className="font-mono" fontSize="10.5">
         <rect x="372" y="398" width="180" height="94" fill="var(--bg)" stroke="var(--line-strong)" />
-        <text x="382" y="414" className="fill-ink-dim" letterSpacing="1.2" fontSize="8.5">
+        <text x="382" y="414" className="fill-ink-dim" letterSpacing="1.2" fontSize="10">
           REG    RAW    DECODED
         </text>
         {regs.map((r, i) => (
@@ -166,14 +166,14 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
         <path d="M556 260 H654" stroke="var(--copper)" strokeWidth="1.6" fill="none" />
         <path d="M706 260 H758" stroke="var(--copper)" strokeWidth="1.6" fill="none" />
         <circle cx="556" cy="260" r="3.5" fill="none" stroke="var(--copper)" />
-        <text x="605" y="246" textAnchor="middle" className="fill-ink-dim font-mono" fontSize="9" letterSpacing="1.2">
+        <text x="605" y="246" textAnchor="middle" className="fill-ink-dim font-mono" fontSize="10.5" letterSpacing="1.2">
           ETH / WI-FI
         </text>
         <polygon points="680,234 703,247 703,273 680,286 657,273 657,247" fill="var(--bg)" stroke={lit(3) ? "var(--signal)" : "var(--line-strong)"} strokeWidth="1.4" />
-        <text x="680" y="257" textAnchor="middle" className="fill-ink font-mono" fontSize="8.5" letterSpacing="1">
+        <text x="680" y="257" textAnchor="middle" className="fill-ink font-mono" fontSize="10" letterSpacing="1">
           MQTT
         </text>
-        <text x="680" y="268" textAnchor="middle" className="fill-ink-dim font-mono" fontSize="7.5">
+        <text x="680" y="268" textAnchor="middle" className="fill-ink-dim font-mono" fontSize="9">
           broker
         </text>
       </g>
@@ -187,7 +187,7 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
       {/* ── 05 INSIGHT: telemetry panel ── */}
       <g opacity={on(3)} style={{ transition: "opacity 160ms linear" }}>
         <rect x="762" y="120" width="226" height="290" fill="var(--bg-raised)" stroke={lit(4) ? "var(--copper)" : "var(--line-strong)"} />
-        <text x="776" y="142" className="fill-ink-dim font-mono" fontSize="9" letterSpacing="1.4">
+        <text x="776" y="142" className="fill-ink-dim font-mono" fontSize="10.5" letterSpacing="1.4">
           armtronix/ia010/meter/01
         </text>
         <circle cx="972" cy="139" r="3.5" fill={lit(3) ? "var(--signal)" : "var(--ink-dim)"} />
@@ -197,7 +197,7 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
           { k: "ENERGY", v: reading.kwh.toFixed(1), u: "kWh", y: 274 },
         ].map((row) => (
           <g key={row.k} className="font-mono">
-            <text x="776" y={row.y - 14} className="fill-ink-dim" fontSize="8.5" letterSpacing="1.6">
+            <text x="776" y={row.y - 14} className="fill-ink-dim" fontSize="10" letterSpacing="1.6">
               {row.k}
             </text>
             <text x="776" y={row.y + 8} className="fill-signal" fontSize="22" style={{ fontVariantNumeric: "tabular-nums" }}>
@@ -211,7 +211,7 @@ export function SignalDiagram({ progress, reading, history, viewBox = "0 0 1000 
         <line x1="776" y1="300" x2="974" y2="300" stroke="var(--line)" />
         <line x1="790" y1={thY} x2="960" y2={thY} stroke="var(--hazard)" strokeDasharray="3 3" opacity={lit(4) ? 0.9 : 0} />
         <path d={spark} fill="none" stroke="var(--signal)" strokeWidth="1.5" opacity={lit(4) ? 1 : 0.35} />
-        <text x="776" y="396" className="font-mono" fontSize="8.5" letterSpacing="1.2" fill={alarm && lit(4) ? "var(--hazard)" : "var(--ink-dim)"}>
+        <text x="776" y="396" className="font-mono" fontSize="10" letterSpacing="1.2" fill={alarm && lit(4) ? "var(--hazard)" : "var(--ink-dim)"}>
           {lit(4) ? (alarm ? "▲ CURRENT > 12.5 A · FLAGGED" : "● WITHIN LIMITS") : "SIMULATED FEED"}
         </text>
       </g>
