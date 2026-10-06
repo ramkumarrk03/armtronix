@@ -1,0 +1,424 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Theme tokens
+   Bench mode (dark, default) = oscilloscope bench.
+   Datasheet mode (light)     = printed spec sheet.
+   Colour carries meaning: copper = physical, signal = live data,
+   hazard = action / warning. Never use signal for decoration.
+------------------------------------------------------------------- */
+:root,
+:root[data-theme="bench"] {
+  --bg: #0b0d0c;
+  --bg-raised: #111513;
+  --mask: #0f2a1e; /* solder-mask green */
+  --copper: #c8794a;
+  --copper-hi: #e39a63;
+  --copper-dim: rgba(200, 121, 74, 0.28);
+  --ink: #ece8dc; /* silkscreen */
+  --ink-dim: #9a9a90;
+  --signal: #ffb000; /* live data only */
+  --signal-glow: rgba(255, 176, 0, 0.45);
+  --ok: #5bd68a;
+  --fault: #ff5a3c;
+  --hazard: #ffc53d;
+  --line: rgba(236, 232, 220, 0.12);
+  --line-strong: rgba(236, 232, 220, 0.28);
+  --grid-dot: rgba(236, 232, 220, 0.07);
+  --led: rgba(255, 60, 40, 0.9);
+  color-scheme: dark;
+}
+
+:root[data-theme="sheet"] {
+  --bg: #f3f0e8;
+  --bg-raised: #ebe7dc;
+  --mask: #dfe6dc;
+  --copper: #9a4f22;
+  --copper-hi: #b5602c;
+  --copper-dim: rgba(154, 79, 34, 0.3);
+  --ink: #121212;
+  --ink-dim: #55524b;
+  --signal: #0a7a4a;
+  --signal-glow: rgba(10, 122, 74, 0.3);
+  --ok: #1f7a43;
+  --fault: #c2361b;
+  --hazard: #9a6a00;
+  --line: rgba(18, 18, 18, 0.14);
+  --line-strong: rgba(18, 18, 18, 0.32);
+  --grid-dot: rgba(18, 18, 18, 0.09);
+  --led: rgba(230, 40, 20, 0.75);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-mask: var(--mask);
+  --color-copper: var(--copper);
+  --color-copper-hi: var(--copper-hi);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-signal: var(--signal);
+  --color-ok: var(--ok);
+  --color-fault: var(--fault);
+  --color-hazard: var(--hazard);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --font-display: var(--font-archivo);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-jetbrains);
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-variation-settings: "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--copper);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--hazard);
+  outline-offset: 3px;
+}
+
+/* Mono data: always tabular so readouts never jitter. */
+.font-mono,
+.tabular {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* Wide engraved-nameplate display type. */
+.nameplate {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-variation-settings: "wdth" 125;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+/* PCB dot grid used behind hero / sections. */
+.pcb-grid {
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+
+/* Theme switch should not animate every colour on first paint. */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 160ms var(--ease-snap),
+    color 160ms var(--ease-snap),
+    border-color 160ms var(--ease-snap) !important;
+}
+
+/* ------------------------------------------------------------------
+   Hero: power-on sequence + LED bloom over the real photo
+------------------------------------------------------------------- */
+.hero-photo {
+  -webkit-mask-image: radial-gradient(ellipse 60% 62% at 52% 50%, #000 26%, rgba(0,0,0,0.55) 52%, rgba(0,0,0,0.18) 68%, transparent 82%);
+  mask-image: radial-gradient(ellipse 60% 62% at 52% 50%, #000 26%, rgba(0,0,0,0.55) 52%, rgba(0,0,0,0.18) 68%, transparent 82%);
+}
+.hero-photo-img {
+  filter: brightness(0.82) contrast(1.08) saturate(0.95);
+}
+:root[data-theme="sheet"] .hero-photo-img {
+  filter: contrast(1.04) saturate(0.9);
+}
+.boot-pending .hero-stage[data-phase="off"] .hero-photo-img {
+  filter: brightness(0.22) saturate(0.4);
+}
+.boot-pending .hero-stage[data-phase="booting"] .hero-photo-img {
+  animation: power-on 900ms steps(1, end) both;
+}
+@keyframes power-on {
+  0% { filter: brightness(0.22) saturate(0.4); }
+  12% { filter: brightness(0.7) saturate(0.8); }
+  18% { filter: brightness(0.3) saturate(0.5); }
+  30% { filter: brightness(0.82) contrast(1.08) saturate(0.95); }
+  36% { filter: brightness(0.55) saturate(0.8); }
+  48%, 100% { filter: brightness(0.82) contrast(1.08) saturate(0.95); }
+}
+
+.hero-led {
+  position: absolute;
+  width: 6.2%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 235, 220, 0.95) 0 8%, var(--led) 22%, rgba(255, 40, 20, 0.35) 45%, transparent 70%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 70ms linear;
+}
+.hero-led--status {
+  width: 5.4%;
+  background: radial-gradient(circle, rgba(255, 235, 220, 0.95) 0 8%, var(--led) 24%, transparent 68%);
+}
+.hero-led[data-on] {
+  opacity: 1;
+}
+
+/* POST line: segments appear in sequence while booting */
+.post-seg {
+  opacity: 1;
+}
+.boot-pending .hero-stage[data-phase="off"] .post-seg {
+  opacity: 0;
+}
+.boot-pending .hero-stage[data-phase="booting"] .post-seg {
+  animation: seg-in 1ms step-end both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes seg-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Copper arrow in the headline routes in like a trace */
+.hero-arrow {
+  transform-origin: left center;
+}
+.boot-pending .hero-stage[data-phase="off"] .hero-arrow {
+  transform: scaleX(0);
+}
+.boot-pending .hero-stage[data-phase="booting"] .hero-arrow {
+  animation: route-in 520ms linear 420ms both;
+}
+@keyframes route-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* CTA styled as a screw-terminal block: the pin "makes contact" on hover */
+.cta-terminal {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px 14px 14px;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: var(--ink);
+  transition:
+    border-color 140ms var(--ease-snap),
+    background-color 140ms var(--ease-snap);
+}
+.cta-terminal:hover,
+.cta-terminal:focus-visible {
+  border-color: var(--copper);
+  background: color-mix(in srgb, var(--copper) 8%, var(--bg));
+}
+.cta-terminal__pin {
+  position: relative;
+  margin-top: 2px;
+  height: 18px;
+  width: 18px;
+  flex: none;
+  border: 1px solid var(--copper);
+  border-radius: 2px;
+}
+.cta-terminal__pin::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 9999px;
+  border: 1px solid var(--copper);
+  transition:
+    background-color 90ms linear,
+    box-shadow 90ms linear;
+}
+.cta-terminal:hover .cta-terminal__pin::before,
+.cta-terminal:focus-visible .cta-terminal__pin::before {
+  background: var(--signal);
+  border-color: var(--signal);
+  box-shadow: 0 0 10px var(--signal-glow);
+}
+
+/* Buttons: hazard-free, copper for action, mono labels */
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--copper);
+  transition:
+    background-color 120ms var(--ease-snap),
+    color 120ms var(--ease-snap),
+    border-color 120ms var(--ease-snap);
+}
+.btn-primary {
+  background: var(--copper);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: var(--copper-hi);
+  border-color: var(--copper-hi);
+}
+.btn-ghost {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-ghost:hover {
+  border-color: var(--copper);
+  color: var(--copper-hi);
+}
+:root[data-theme="sheet"] .btn-primary {
+  color: #f3f0e8;
+}
+
+/* Links underline like a trace being routed */
+.link-trace {
+  background-image: linear-gradient(var(--copper), var(--copper));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition:
+    background-size 180ms linear,
+    color 120ms linear;
+}
+.link-trace:hover,
+.link-trace:focus-visible {
+  background-size: 100% 1px;
+  color: var(--ink);
+}
+
+/* 35 mm top-hat DIN rail */
+.din-rail {
+  height: 34px;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, var(--bg) 22px 46px) center / 100% 8px no-repeat,
+    linear-gradient(180deg, color-mix(in srgb, var(--ink) 14%, transparent), color-mix(in srgb, var(--ink) 6%, transparent));
+}
+.rail-track {
+  scrollbar-width: thin;
+  scrollbar-color: var(--copper-dim) transparent;
+  overscroll-behavior-x: contain;
+}
+.rail-track::-webkit-scrollbar {
+  height: 4px;
+}
+.rail-track::-webkit-scrollbar-thumb {
+  background: var(--copper-dim);
+}
+
+/* Form fields: datasheet boxes */
+.field-input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  font-size: 16px; /* no iOS zoom */
+  transition: border-color 120ms var(--ease-snap);
+}
+.field-input::placeholder {
+  color: color-mix(in srgb, var(--ink-dim) 75%, transparent);
+}
+.field-input:hover {
+  border-color: var(--copper-dim);
+}
+.field-input:focus-visible {
+  outline: none;
+  border-color: var(--copper);
+  box-shadow: 0 0 0 1px var(--copper);
+}
+.field-input[aria-invalid="true"] {
+  border-color: var(--fault);
+}
+
+.rfq-packet {
+  animation: packet-run 700ms linear infinite;
+}
+@keyframes packet-run {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(400%); }
+}
+
+/* 4–20 mA slider: copper track, square thumb like a fader cap */
+.loop-slider {
+  appearance: none;
+  height: 28px;
+  background: transparent;
+}
+.loop-slider::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(90deg, var(--fault) 0 16.4%, var(--copper) 16.4% 93.2%, var(--fault) 93.2%);
+}
+.loop-slider::-moz-range-track {
+  height: 2px;
+  background: linear-gradient(90deg, var(--fault) 0 16.4%, var(--copper) 16.4% 93.2%, var(--fault) 93.2%);
+}
+.loop-slider::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -11px;
+  height: 24px;
+  width: 14px;
+  background: var(--ink);
+  border: 1px solid var(--bg);
+  box-shadow: inset 0 -2px 0 var(--copper);
+  cursor: grab;
+}
+.loop-slider::-moz-range-thumb {
+  height: 24px;
+  width: 14px;
+  border-radius: 0;
+  background: var(--ink);
+  border: 1px solid var(--bg);
+  cursor: grab;
+}
+
+/* Hero: a quiet pool behind the centred copy; the bench stays visible at the edges */
+.hero-scrim {
+  background:
+    radial-gradient(ellipse 38% 46% at 50% 50%, var(--bg) 0%, color-mix(in srgb, var(--bg) 82%, transparent) 40%, transparent 78%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 60%, transparent) 0%, transparent 18%, transparent 82%, var(--bg) 100%);
+}
+
+@media (max-width: 639px) {
+  .hero-scrim {
+    background:
+      radial-gradient(ellipse 70% 30% at 50% 48%, color-mix(in srgb, var(--bg) 70%, transparent) 0%, transparent 85%),
+      linear-gradient(180deg, color-mix(in srgb, var(--bg) 50%, transparent) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
+  }
+}
+
+/* Ambient PCB layer: fades out at section edges so sections blend */
+.trace-field {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
